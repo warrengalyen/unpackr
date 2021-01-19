@@ -6,12 +6,6 @@ A work in progress command line utility to unpack various types of archives quic
 unpackr /path/to/my/archive.zip
 ```
 
-## Installation
-
-```
-cargo install unpackr
-```
-
 ## Supported Formats
 
 - zip archives

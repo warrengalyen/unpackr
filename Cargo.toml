@@ -3,6 +3,16 @@ name = "unpackr"
 version = "0.1.0"
 authors = ["Warren Galyen <wgalyen@hotmail.com>"]
 edition = "2018"
+license = "MIT"
+description = "Command line utility that unpacks archives."
+readme = "README.md"
+repository = "https://github.com/warrengalyen/unpackr"
+homepage = "https://github.com/warrengalyen/unpackr"
+documentation = "https://github.com/warrengalyen/unpackr"
+
+[profile.release]
+lto = true
+debug = true
 
 [dependencies]
 clap = "2.33.3"
