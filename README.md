@@ -8,6 +8,7 @@ unpackr /path/to/my/archive.zip
 
 ## Supported Formats
 
+- unix ar archives
 - zip archives
 - uncompressed tarballs
 - gzip-compressed tarballs

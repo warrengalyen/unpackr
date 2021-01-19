@@ -15,6 +15,7 @@ lto = true
 debug = true
 
 [dependencies]
+ar = "0.6.2"
 clap = "2.33.3"
 console = "0.14.0"
 zip = "0.5.9"
