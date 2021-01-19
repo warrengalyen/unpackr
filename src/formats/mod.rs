@@ -1,3 +1,4 @@
+use std::fmt;
 use std::fs;
 use std::io::{BufReader, Read};
 use std::path::Path;
@@ -11,7 +12,7 @@ use crate::archive::Archive;
 mod tar;
 mod zip;
 
-pub use self::tar::TarArchive;
+pub use self::tar::{TarArchive, TarCompression};
 pub use self::zip::ZipArchive;
 
 /// An enum of supported archive types.
@@ -19,9 +20,21 @@ pub use self::zip::ZipArchive;
 pub enum ArchiveType {
     Zip,
     Tar,
+    TarGz,
+}
+
+impl fmt::Display for ArchiveType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
+            ArchiveType::Zip => write!(f, "zip archive"),
+            ArchiveType::Tar => write!(f, "uncompressed tarball"),
+            ArchiveType::TarGz => write!(f, "gzip-compressed tarball"),
+        }
+    }
 }
 
 impl ArchiveType {
+
     /// Determines the archive type for the given path.
     pub fn for_path<P: AsRef<Path>>(path: &P) -> Option<ArchiveType> {
         // determine by filename
@@ -47,7 +60,11 @@ impl ArchiveType {
     pub fn open<P: AsRef<Path>>(self, path: &P) -> Result<Box<dyn Archive>, Error> {
         match self {
             ArchiveType::Zip => Ok(Box::new(ZipArchive::open(path)?)),
-            ArchiveType::Tar => Ok(Box::new(TarArchive::open(path)?)),
+            ArchiveType::Tar => Ok(Box::new(TarArchive::open(
+                path,
+                TarCompression::Uncompressed,
+            )?)),
+            ArchiveType::TarGz => Ok(Box::new(TarArchive::open(path, TarCompression::Gzip)?)),
         }
     }
 }
@@ -65,5 +82,6 @@ lazy_static! {
     pub static ref BY_PATTERN: Vec<(Regex, ArchiveType)> = vec![
         (Regex::new(r"(?i)\.zip$").unwrap(), ArchiveType::Zip),
         (Regex::new(r"(?i)\.tar$").unwrap(), ArchiveType::Tar),
+        (Regex::new(r"(?i)\.t(ar.gz|gz)$").unwrap(), ArchiveType::TarGz),
     ];
 }
