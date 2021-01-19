@@ -99,6 +99,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "bzip2"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "275d84fe348b838dc49477d39770682839b3e73e21a3eadc07b12924f1a9fcbe"
+dependencies = [
+ "bzip2-sys",
+ "libc",
+]
+
+[[package]]
 name = "bzip2-sys"
 version = "0.1.9+1.0.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -756,6 +766,7 @@ checksum = "f7fe0bb3479651439c9112f72b6c505038574c9fbb575ed1bf3b797fa39dd564"
 name = "unpackr"
 version = "0.1.0"
 dependencies = [
+ "bzip2 0.4.1",
  "clap",
  "console",
  "failure",
@@ -838,7 +849,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cc2896475a242c41366941faa27264df2cb935185a92e059a004d0048feb2ac5"
 dependencies = [
  "byteorder",
- "bzip2",
+ "bzip2 0.3.3",
  "crc32fast",
  "flate2",
  "thiserror",
