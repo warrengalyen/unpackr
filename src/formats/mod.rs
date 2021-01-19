@@ -8,11 +8,11 @@ use regex::Regex;
 
 use crate::archive::Archive;
 
-mod zip;
 mod tar;
+mod zip;
 
-pub use self::zip::ZipArchive;
 pub use self::tar::TarArchive;
+pub use self::zip::ZipArchive;
 
 /// An enum of supported archive types.
 #[derive(Copy, Clone, PartialEq, Eq)]
@@ -22,7 +22,6 @@ pub enum ArchiveType {
 }
 
 impl ArchiveType {
-
     /// Determines the archive type for the given path.
     pub fn for_path<P: AsRef<Path>>(path: &P) -> Option<ArchiveType> {
         // determine by filename
