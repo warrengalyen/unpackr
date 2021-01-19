@@ -773,6 +773,7 @@ dependencies = [
  "indicatif",
  "lazy_static",
  "libflate",
+ "petgraph",
  "regex",
  "tar",
  "tree_magic",
